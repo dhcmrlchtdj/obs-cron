@@ -1,6 +1,6 @@
 import { Tnum, Trange, Tstep, Tfield, Tcron, Tdate } from "./_type";
 
-const range = (s: number, e: number, step: number) => {
+const seq = (s: number, e: number, step: number) => {
     const lst = [];
     do {
         lst.push(s);
@@ -22,7 +22,7 @@ const gen = (field: Tfield) => {
             case "step":
                 // @ts-ignore
                 const [[_, [ll, rr]], ss] = field[1] as [Trange, number];
-                const step = range(ll, rr, ss);
+                const step = seq(ll, rr, ss);
                 return curr => step.includes(curr);
             case "list":
                 const list = field[1] as Array<Tnum | Trange | Tstep>;

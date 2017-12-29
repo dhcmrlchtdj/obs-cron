@@ -8,13 +8,13 @@
 
 ---
 
-| field        | allowed values      |
-|--------------|---------------------|
-| minute       | 0-59                |
-| hour         | 0-23                |
-| day of month | 1-31                |
-| month        | 1-12                |
-| day of week  | 0-7 (0 or 7 is Sun) |
+| field        | allowed values    |
+|--------------|-------------------|
+| minute       | 0-59              |
+| hour         | 0-23              |
+| day of month | 1-31              |
+| month        | 1-12              |
+| day of week  | 0-6 (0 is Sunday) |
 
 - A field may be an asterisk (*), which always stands for `first-last`.
 - Ranges are two numbers separated with a hyphen. The specified range is inclusive. `8-11`
