@@ -1,6 +1,6 @@
 {
-    "name": "cron",
-    "version": "0.0.0",
+    "name": "obs-cron",
+    "version": "0.0.1",
     "main": "_build/index.js",
     "author": "niris <nirisix@gmail.com>",
     "license": "MIT",
@@ -32,5 +32,7 @@
         "tabWidth": 4,
         "trailingComma": "all",
         "useTabs": false
-    }
+    },
+    "description": "observable cron",
+    "repository": "git@github.com:dhcmrlchtdj/obs-cron.git"
 }
