@@ -1,0 +1,35 @@
+{
+    "include": ["src/**/*"],
+    "compilerOptions": {
+        "outDir": "./_build/",
+        "target": "es2017",
+        "module": "es2015",
+        "moduleResolution": "Node",
+        "noEmitOnError": true,
+        "declaration": true,
+        "sourceMap": true,
+
+        "allowJs": false,
+        "checkJs": false,
+
+        "strict": true,
+
+        "alwaysStrict": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+
+        "preserveConstEnums": false,
+
+        "pretty": true
+    }
+}
