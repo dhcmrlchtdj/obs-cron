@@ -2,8 +2,9 @@ import { Trange, Tstep, Tlist, Tfield, Tcron } from "./_type";
 
 const inside = (min: number, max: number, expr: string): number => {
     const n = Number(expr);
-    if (Number.isNaN(n)) throw new Error("err");
-    if (n < min || n > max) throw new Error("err");
+    if (Number.isNaN(n)) throw new Error(`expect Number, got '${expr}'`);
+    if (n < min || n > max)
+        throw new Error(`${n} not in range [${min}, ${max}]`);
     return n;
 };
 
@@ -15,7 +16,7 @@ const parseRange = (min: number, max: number, expr: string): Trange => {
         const rr = inside(min, max, r);
         return ["range", [ll, rr]];
     } else {
-        throw new Error("error");
+        throw new Error(`expect range, got '${expr}'`);
     }
 };
 
@@ -26,10 +27,10 @@ const parseStep = (min: number, max: number, expr: string): Tstep => {
         const r: Trange =
             f === "*" ? ["range", [min, max]] : parseRange(min, max, f);
         const ss = Number(s);
-        if (Number.isNaN(ss)) throw new Error("err");
+        if (Number.isNaN(ss)) throw new Error(`expect Number, got '${expr}'`);
         return ["step", [r, ss]];
     } else {
-        throw new Error("error");
+        throw new Error(`expect step, got '${expr}'`);
     }
 };
 
@@ -54,7 +55,8 @@ const parse = (min: number, max: number, expr: string): Tfield => {
 
 const parser = (cronExpr: string): Tcron => {
     const exprs = cronExpr.split(/\s+/);
-    if (exprs.length !== 5) throw new Error("error");
+    if (exprs.length !== 5)
+        throw new Error(`expect cron expression, got '${cronExpr}'`);
 
     const [minuteExpr, hourExpr, dateExpr, monthExpr, weekExpr] = exprs;
     const cron = {
