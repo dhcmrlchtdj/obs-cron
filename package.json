@@ -1,6 +1,6 @@
 {
     "name": "obs-cron",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "observable cron",
     "main": "_build/index.js",
     "author": "niris <nirisix@gmail.com>",
@@ -11,7 +11,9 @@
         "build": "tsc",
         "test": "jest"
     },
-    "files": ["_build"],
+    "files": [
+        "_build"
+    ],
     "dependencies": {
         "rxjs": "5.5.6"
     },
@@ -27,7 +29,10 @@
             "^.+\\.ts$": "ts-jest"
         },
         "testRegex": "/__tests__/.*\\.ts$",
-        "moduleFileExtensions": ["ts", "js"]
+        "moduleFileExtensions": [
+            "ts",
+            "js"
+        ]
     },
     "prettier": {
         "bracketSpacing": true,
