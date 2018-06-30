@@ -27,6 +27,8 @@
         "typescript": "2.9.2"
     },
     "jest": {
+        "verbose": true,
+        "collectCoverage": true,
         "testRegex": "/__tests__/.*.js$"
     },
     "prettier": {

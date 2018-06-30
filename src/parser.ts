@@ -11,9 +11,11 @@ const parseNum = (min: number, max: number, expr: string): number => {
 const parseRange = (min: number, max: number, expr: string): Trange => {
     const range = expr.split("-");
     if (range.length === 2) {
+        if (range.some(e => e.trim() === ""))
+            throw new Error(`expect range, got '${expr}'`);
         const [l, r] = range;
         const ll = parseNum(min, max, l);
-        const rr = parseNum(min, max, r);
+        const rr = parseNum(ll, max, r);
         return { kind: "range", value: [ll, rr] };
     } else {
         throw new Error(`expect range, got '${expr}'`);
@@ -23,13 +25,14 @@ const parseRange = (min: number, max: number, expr: string): Trange => {
 const parseStep = (min: number, max: number, expr: string): Tstep => {
     const step = expr.split("/");
     if (step.length === 2) {
+        if (step.some(e => e.trim() === ""))
+            throw new Error(`expect step, got '${expr}'`);
         const [f, s] = step;
         const r: Trange =
             f === "*"
                 ? { kind: "range", value: [min, max] }
                 : parseRange(min, max, f);
-        const ss = Number(s);
-        if (Number.isNaN(ss)) throw new Error(`expect Number, got '${expr}'`);
+        const ss = parseNum(0, Infinity, s);
         return {
             kind: "step",
             value: [r, ss],
@@ -44,12 +47,12 @@ const parseField = (
     max: number,
     expr: string,
 ): Tnum | Trange | Tstep => {
-    if (expr.includes("/")) {
+    if (expr === "*") {
+        return { kind: "range", value: [min, max] };
+    } else if (expr.includes("/")) {
         return parseStep(min, max, expr);
     } else if (expr.includes("-")) {
         return parseRange(min, max, expr);
-    } else if (expr === "*") {
-        return { kind: "range", value: [min, max] };
     } else {
         const n = parseNum(min, max, expr);
         return { kind: "number", value: n };
@@ -69,14 +72,15 @@ const parse = (min: number, max: number, expr: string): Tfield => {
     if (exprs.length === 1) {
         return parseField(min, max, expr);
     } else {
+        if (exprs.some(e => e.trim() === ""))
+            throw new Error(`expect list, got '${expr}'`);
         return parseFields(min, max, exprs);
     }
 };
 
 const parser = (cronExpr: string): Tcron => {
     const exprs = cronExpr.split(/\s+/);
-    if (exprs.length !== 5)
-        throw new Error(`expect cron expression, got '${cronExpr}'`);
+    if (exprs.length !== 5) throw new Error(`expect cron, got '${cronExpr}'`);
 
     const [minuteExpr, hourExpr, dateExpr, monthExpr, weekExpr] = exprs;
     const cron = {

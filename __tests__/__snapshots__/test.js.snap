@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`exception 1`] = `"expect cron, got '* * * * * *'"`;
+
+exports[`exception 2`] = `"expect Number, got 'x'"`;
+
+exports[`exception 3`] = `"99 not in range [0, 59]"`;
+
+exports[`exception 4`] = `"expect range, got '1'"`;
+
+exports[`exception 5`] = `"1 not in range [3, 59]"`;
+
+exports[`exception 6`] = `"expect step, got '*/'"`;
+
+exports[`exception 7`] = `"expect step, got '1-9/'"`;
+
+exports[`exception 8`] = `"expect step, got '1/'"`;
+
+exports[`exception 9`] = `"expect range, got '1-'"`;
+
+exports[`exception 10`] = `"expect list, got '1,'"`;
+
+exports[`exception 11`] = `"expect range, got '1-2-3'"`;
+
+exports[`exception 12`] = `"expect step, got '1/2/3'"`;
+
+exports[`exception 13`] = `"expect list, got '1,2,'"`;
