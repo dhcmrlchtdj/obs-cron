@@ -14,7 +14,7 @@ const parseRange = (min: number, max: number, expr: string): Trange => {
         const [l, r] = range;
         const ll = inside(min, max, l);
         const rr = inside(min, max, r);
-        return ["range", [ll, rr]];
+        return { kind: "range", value: [ll, rr] };
     } else {
         throw new Error(`expect range, got '${expr}'`);
     }
@@ -25,10 +25,15 @@ const parseStep = (min: number, max: number, expr: string): Tstep => {
     if (step.length === 2) {
         const [f, s] = step;
         const r: Trange =
-            f === "*" ? ["range", [min, max]] : parseRange(min, max, f);
+            f === "*"
+                ? { kind: "range", value: [min, max] }
+                : parseRange(min, max, f);
         const ss = Number(s);
         if (Number.isNaN(ss)) throw new Error(`expect Number, got '${expr}'`);
-        return ["step", [r, ss]];
+        return {
+            kind: "step",
+            value: [r, ss],
+        };
     } else {
         throw new Error(`expect step, got '${expr}'`);
     }
@@ -37,19 +42,22 @@ const parseStep = (min: number, max: number, expr: string): Tstep => {
 const parse = (min: number, max: number, expr: string): Tfield => {
     const exprs = expr.split(",");
     if (exprs.length === 1) {
-        if (/\//.test(expr)) {
+        if (expr.includes("/")) {
             return parseStep(min, max, expr);
-        } else if (/-/.test(expr)) {
+        } else if (expr.includes("-")) {
             return parseRange(min, max, expr);
         } else if (expr === "*") {
-            return ["range", [min, max]];
+            return { kind: "range", value: [min, max] };
         } else {
             const n = inside(min, max, expr);
-            return ["number", n];
+            return { kind: "number", value: n };
         }
     } else {
         const l = exprs.map(x => parse(min, max, x));
-        return ["list", l] as Tlist;
+        return {
+            kind: "list",
+            value: l,
+        } as Tlist;
     }
 };
 

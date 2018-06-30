@@ -1,4 +1,4 @@
-import { Tnum, Trange, Tstep, Tfield, Tcron, Tdate } from "./_type";
+import { Tfield, Tcron, Tdate } from "./_type";
 
 const seq = (s: number, e: number, step: number) => {
     const lst = [];
@@ -10,31 +10,26 @@ const seq = (s: number, e: number, step: number) => {
     return lst;
 };
 
-const gen = (field: Tfield) => {
-    const _gen: () => (curr: number) => boolean = () => {
-        const key = field[0];
-        switch (key) {
-            case "number":
-                return curr => curr === field[1];
-            case "range":
-                const [l, r] = field[1] as [number, number];
-                return curr => l <= curr && r >= curr;
-            case "step":
-                // @ts-ignore
-                const [[_, [ll, rr]], ss] = field[1] as [Trange, number];
-                const step = seq(ll, rr, ss);
-                return curr => step.includes(curr);
-            case "list":
-                const list = field[1] as Array<Tnum | Trange | Tstep>;
-                const fns = list.map(x => gen(x));
-                return curr => fns.some(fn => fn(curr));
-        }
-    };
-    const f = _gen();
-    return f;
+const gen: (field: Tfield) => (curr: number) => boolean = (field: Tfield) => {
+    switch (field.kind) {
+        case "number":
+            return curr => curr === field.value;
+        case "range":
+            const [l, r] = field.value;
+            return curr => l <= curr && r >= curr;
+        case "step":
+            const [range, ss] = field.value;
+            const [ll, rr] = range.value;
+            const step = seq(ll, rr, ss);
+            return curr => step.includes(curr);
+        case "list":
+            const list = field.value;
+            const fns = list.map(x => gen(x));
+            return curr => fns.some(fn => fn(curr));
+    }
 };
 
-const converter = (cron: Tcron) => {
+const converter:(cron: Tcron) => (date:Tdate) => boolean = (cron: Tcron) => {
     const v = {
         minute: gen(cron.minute),
         hour: gen(cron.hour),

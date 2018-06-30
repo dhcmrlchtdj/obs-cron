@@ -2,25 +2,27 @@
     "include": ["src/**/*"],
     "compilerOptions": {
         "outDir": "./_build/",
-        "target": "es2017",
-        "module": "commonjs",
-        "moduleResolution": "Node",
-        "noEmitOnError": true,
-        "declaration": true,
-        "sourceMap": true,
 
-        "allowJs": false,
-        "checkJs": false,
+        "module": "esnext",
+        "target": "es2017",
+
+        "esModuleInterop": false,
+        "allowSyntheticDefaultImports": false,
+
+        "sourceMap": false,
+        "importHelpers": false,
+        "declaration": true,
+        "removeComments": true,
+        "noEmitOnError": true,
+        "moduleResolution": "node",
 
         "strict": true,
-
         "alwaysStrict": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-
+        "strictPropertyInitialization": true,
         "allowUnreachableCode": false,
         "allowUnusedLabels": false,
-
         "noFallthroughCasesInSwitch": true,
         "noImplicitAny": true,
         "noImplicitReturns": true,
@@ -28,8 +30,10 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
 
-        "preserveConstEnums": false,
+        "experimentalDecorators": false,
+        "emitDecoratorMetadata": false,
 
         "pretty": true
     }
 }
+

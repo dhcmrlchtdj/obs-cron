@@ -1,7 +1,5 @@
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/observable/timer";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/filter";
+import { timer } from "rxjs";
+import { map } from "rxjs/operators";
 import { Tdate } from "./_type";
 
 const ONE_MINUTE = 60 * 1000;
@@ -17,15 +15,18 @@ const next = new Date(
     0,
 );
 
-const timer: Observable<Tdate> = Observable.timer(next, ONE_MINUTE).map(_ => {
-    const date = new Date();
-    return {
-        minute: date.getMinutes(),
-        hour: date.getHours(),
-        date: date.getDate(),
-        month: date.getMonth(),
-        week: date.getDay(),
-    };
-});
+const Otimer = timer(next, ONE_MINUTE).pipe(
+    map(() => {
+        const date = new Date();
+        const tdate: Tdate = {
+            minute: date.getMinutes(),
+            hour: date.getHours(),
+            date: date.getDate(),
+            month: date.getMonth(),
+            week: date.getDay(),
+        };
+        return tdate;
+    }),
+);
 
-export default timer;
+export default Otimer;

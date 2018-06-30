@@ -1,10 +1,23 @@
-import { Observable } from "rxjs/Observable";
-export { Observable };
+export type Tnum = {
+    kind: "number";
+    value: number;
+};
 
-export type Tnum = ["number", number];
-export type Trange = ["range", [number, number]];
-export type Tstep = ["step", [Trange, number]];
-export type Tlist = ["list", Array<Tnum | Trange | Tstep>];
+export type Trange = {
+    kind: "range";
+    value: [number, number];
+};
+
+export type Tstep = {
+    kind: "step";
+    value: [Trange, number];
+};
+
+export type Tlist = {
+    kind: "list";
+    value: Array<Tnum | Trange | Tstep>;
+};
+
 export type Tfield = Tnum | Trange | Tlist | Tstep;
 
 export interface Tcron {
