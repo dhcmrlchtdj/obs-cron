@@ -1,6 +1,6 @@
-import cron from "../";
+const cron = require("../");
 
-jest.setTimeout(3 * 60 * 1000);
+jest.setTimeout(5 * 60 * 1000);
 
 test("every minute", done => {
     let flag = 2;
@@ -14,10 +14,11 @@ test("every minute", done => {
         } else if (flag === 1) {
             flag--;
             snd = new Date().getMinutes();
-        } else if (flag === 0) {
+
             sub.unsubscribe();
+
             const delta = snd - fst;
-            expect(delta).toEqual(0);
+            expect(delta).toEqual(1);
             done();
         }
     });

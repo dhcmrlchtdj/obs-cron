@@ -29,7 +29,7 @@ const gen: (field: Tfield) => (curr: number) => boolean = (field: Tfield) => {
     }
 };
 
-const converter:(cron: Tcron) => (date:Tdate) => boolean = (cron: Tcron) => {
+const converter: (cron: Tcron) => (date: Tdate) => boolean = (cron: Tcron) => {
     const v = {
         minute: gen(cron.minute),
         hour: gen(cron.hour),
