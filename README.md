@@ -7,7 +7,7 @@
 ```typescript
 import cron from 'obs-cron';
 
-cron("* * * * *").subscribe(_ => {
+cron("* * * * *").subscribe(() => {
     console.log(new Date());
 });
 ```
@@ -36,9 +36,3 @@ cron("* * * * *").subscribe(_ => {
 
 
 more: https://www.freebsd.org/cgi/man.cgi?crontab(5)
-
----
-
-## TODO
-
-- [ ] tests

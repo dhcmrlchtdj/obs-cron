@@ -7,8 +7,9 @@
     "repository": "git@github.com:dhcmrlchtdj/obs-cron.git",
     "license": "MIT",
     "scripts": {
+        "prepack": "tsc",
         "build": "tsc",
-        "test": "jest"
+        "test": "tsc && jest"
     },
     "files": [
         "_build"
@@ -23,14 +24,7 @@
         "typescript": "2.9.2"
     },
     "jest": {
-        "transform": {
-            "^.+\\.ts$": "ts-jest"
-        },
-        "testRegex": "/__tests__/.*\\.ts$",
-        "moduleFileExtensions": [
-            "ts",
-            "js"
-        ]
+        "testRegex": "/_build/__tests__/.*.js$"
     },
     "prettier": {
         "bracketSpacing": true,

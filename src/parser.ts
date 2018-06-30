@@ -1,6 +1,6 @@
-import { Trange, Tstep, Tlist, Tfield, Tcron } from "./_type";
+import { Tnum, Trange, Tstep, Tlist, Tfield, Tcron } from "./_type";
 
-const inside = (min: number, max: number, expr: string): number => {
+const parseNum = (min: number, max: number, expr: string): number => {
     const n = Number(expr);
     if (Number.isNaN(n)) throw new Error(`expect Number, got '${expr}'`);
     if (n < min || n > max)
@@ -12,8 +12,8 @@ const parseRange = (min: number, max: number, expr: string): Trange => {
     const range = expr.split("-");
     if (range.length === 2) {
         const [l, r] = range;
-        const ll = inside(min, max, l);
-        const rr = inside(min, max, r);
+        const ll = parseNum(min, max, l);
+        const rr = parseNum(min, max, r);
         return { kind: "range", value: [ll, rr] };
     } else {
         throw new Error(`expect range, got '${expr}'`);
@@ -39,25 +39,37 @@ const parseStep = (min: number, max: number, expr: string): Tstep => {
     }
 };
 
+const parseField = (
+    min: number,
+    max: number,
+    expr: string,
+): Tnum | Trange | Tstep => {
+    if (expr.includes("/")) {
+        return parseStep(min, max, expr);
+    } else if (expr.includes("-")) {
+        return parseRange(min, max, expr);
+    } else if (expr === "*") {
+        return { kind: "range", value: [min, max] };
+    } else {
+        const n = parseNum(min, max, expr);
+        return { kind: "number", value: n };
+    }
+};
+
+const parseFields = (min: number, max: number, exprs: string[]): Tlist => {
+    const l = exprs.map(x => parseField(min, max, x));
+    return {
+        kind: "list",
+        value: l,
+    };
+};
+
 const parse = (min: number, max: number, expr: string): Tfield => {
     const exprs = expr.split(",");
     if (exprs.length === 1) {
-        if (expr.includes("/")) {
-            return parseStep(min, max, expr);
-        } else if (expr.includes("-")) {
-            return parseRange(min, max, expr);
-        } else if (expr === "*") {
-            return { kind: "range", value: [min, max] };
-        } else {
-            const n = inside(min, max, expr);
-            return { kind: "number", value: n };
-        }
+        return parseField(min, max, expr);
     } else {
-        const l = exprs.map(x => parse(min, max, x));
-        return {
-            kind: "list",
-            value: l,
-        } as Tlist;
+        return parseFields(min, max, exprs);
     }
 };
 
