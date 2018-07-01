@@ -1,5 +1,19 @@
 # obs-cron
 
+[![license][license-image]][license-url]
+[![ci][ci-image]][ci-url]
+[![coverage][coverage-image]][coverage-url]
+[![version][version-image]][version-url]
+
+[license-image]: https://img.shields.io/npm/l/obs-cron.svg?style=flat-square
+[license-url]: http://opensource.org/licenses/MIT
+[ci-image]: https://img.shields.io/travis/dhcmrlchtdj/obs-cron.svg?style=flat-square
+[ci-url]: https://travis-ci.org/dhcmrlchtdj/obs-cron
+[coverage-image]: https://img.shields.io/coveralls/dhcmrlchtdj/obs-cron.svg?style=flat-square
+[coverage-url]: https://coveralls.io/r/dhcmrlchtdj/obs-cron
+[version-image]: https://img.shields.io/npm/v/obs-cron.svg?style=flat-square
+[version-url]: https://www.npmjs.com/package/obs-cron
+
 ---
 
 ## usage

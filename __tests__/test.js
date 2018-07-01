@@ -39,7 +39,6 @@ test("base", async () => {
             let fst = 0;
             let snd = 0;
             const sub = cron(`${m} * * * *`).subscribe(() => {
-                console.log(new Date());
                 if (flag === 2) {
                     flag--;
                     fst = new Date().getMinutes();

@@ -27,7 +27,7 @@
         "typescript": "2.9.2"
     },
     "jest": {
-        "verbose": true,
+        "testEnvironment": "node",
         "collectCoverage": true,
         "testRegex": "/__tests__/.*.js$"
     },

@@ -1,6 +1,10 @@
 notifications:
     email: false
 language: node_js
-cache: yarn
 node_js:
-    - "8"
+    - "lts/*"
+cache:
+    yarn: true
+    directories:
+        - "node_modules"
+after_script: "yarn add -D coveralls && cat ./coverage/lcov.info | coveralls"
