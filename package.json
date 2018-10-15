@@ -1,6 +1,6 @@
 {
     "name": "obs-cron",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "observable cron",
     "main": "./_build/index.bundle.js",
     "module": "./_build/index.js",
