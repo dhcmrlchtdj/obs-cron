@@ -22,7 +22,7 @@ const Otimer = timer(next, ONE_MINUTE).pipe(
             minute: date.getMinutes(),
             hour: date.getHours(),
             date: date.getDate(),
-            month: date.getMonth(),
+            month: date.getMonth() + 1,
             week: date.getDay(),
         };
         return tdate;
